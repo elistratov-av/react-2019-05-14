@@ -24,7 +24,7 @@ class Restaurant extends PureComponent {
       <div>
         <img src={image} width={64} height={64} alt={name} />
         <h3>
-          {name} <Rate disabled allowHalf defaultValue={roundHalf(avgRating)} />{" "}
+          {name} <Rate disabled allowHalf value={roundHalf(avgRating)} />{" "}
           {avgRating}
         </h3>
         <button onClick={this.handleToggleOpenClick}>
