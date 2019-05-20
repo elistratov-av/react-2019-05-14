@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import RestaurantMenu from "./restaurant-menu";
 import ReviewList from "./review-list";
 import { Rate } from "antd";
+import Button from "antd/lib/button";
 
 function roundHalf(v) {
   const rest = v % 1;
@@ -9,14 +10,10 @@ function roundHalf(v) {
 }
 
 class Restaurant extends PureComponent {
-  state = {
-    isReviewsOpen: true
-  };
-
   render() {
     const { image, name, menu, isMenuOpen, reviews } = this.props;
-    const { isReviewsOpen } = this.state;
-    var avgRating = reviews.length
+
+    const avgRating = reviews.length
       ? (reviews.reduce((p, c) => p + c.rating, 0) / reviews.length).toFixed(1)
       : 0;
 
@@ -27,27 +24,17 @@ class Restaurant extends PureComponent {
           {name} <Rate disabled allowHalf value={roundHalf(avgRating)} />{" "}
           {avgRating}
         </h3>
-        <button onClick={this.handleToggleOpenClick}>
+        <Button onClick={this.handleToggleOpenClick}>
           {isMenuOpen ? "Close menu" : "Open menu"}
-        </button>
+        </Button>
         {isMenuOpen ? <RestaurantMenu menu={menu} /> : null}
-        <hr />
-        <button onClick={this.handleToggleReviewsClick}>
-          {isReviewsOpen ? "Close review list" : "Open review list"}
-        </button>
-        {isReviewsOpen ? <ReviewList reviews={reviews} /> : null}
+        <ReviewList reviews={reviews} />
       </div>
     );
   }
 
   handleToggleOpenClick = () => {
     this.props.toggleOpenMenu(this.props.id);
-  };
-
-  handleToggleReviewsClick = () => {
-    this.setState({
-      isReviewsOpen: !this.state.isReviewsOpen
-    });
   };
 }
 
