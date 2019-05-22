@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Restaurant from "./restaurant";
 import { accordion } from "../decorators/accordion";
 import { List } from "antd";
@@ -30,5 +31,12 @@ class RestaurantList extends Component {
     );
   }
 }
+
+RestaurantList.propTypes = {
+  restaurants: PropTypes.arrayOf(PropTypes.object).isRequired,
+  openItemId: PropTypes.string,
+  toggleOpenItem: PropTypes.func.isRequired,
+  fetchData: PropTypes.func
+};
 
 export default accordion(RestaurantList);

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Leaflet from "leaflet";
 
 class RestaurantsMap extends Component {
@@ -24,5 +25,9 @@ class RestaurantsMap extends Component {
     });
   }
 }
+
+RestaurantsMap.propTypes = {
+  restaurants: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
 export default RestaurantsMap;
