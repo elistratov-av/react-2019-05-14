@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Button } from "antd";
 import PropTypes from "prop-types";
 import "./dish.css";
@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { increaseCart, decreaseCart } from "../../ac";
 
 function Dish(props) {
-  const { id, amount, increase, decrease } = props;
+  const { amount, increase, decrease } = props;
   return (
     <Card
       bordered

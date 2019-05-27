@@ -20,3 +20,9 @@ export const decreaseCart = ({ id, name, price }) => ({
     price
   }
 });
+export const clearCart = id => ({
+  type: "CLEAR_CART",
+  payload: {
+    id
+  }
+});
