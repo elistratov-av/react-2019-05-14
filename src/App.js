@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
 import RestaurantList from "./components/restaurant-list";
+import OrderList from "./components/order-list";
 import UserForm from "./components/user-form";
 // import RestaurantsMap from "./components/restaurants-map";
 import { Layout } from "antd";
@@ -19,6 +20,7 @@ function App(props) {
         <RestaurantList restaurants={props.restaurants} />
         {/* temporary turn Map off */}
         {/*{<RestaurantsMap restaurants={props.restaurants} />}*/}
+        {props.orders ? <OrderList orders={props.orders} /> : null}
         <UserForm />
       </Content>
       <Footer>
@@ -29,5 +31,6 @@ function App(props) {
 }
 
 export default connect(store => ({
-  restaurants: store.restaurants
+  restaurants: store.restaurants,
+  orders: Object.values(store.cart)
 }))(App);

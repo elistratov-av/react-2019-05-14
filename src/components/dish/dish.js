@@ -16,13 +16,13 @@ function Dish(props) {
           <span className="dish-price">{amount}</span>
           <Button.Group>
             <Button
-              onClick={() => decrease(id)}
+              onClick={() => decrease(props)}
               type="primary"
               shape="circle"
               icon="minus"
             />
             <Button
-              onClick={() => increase(id)}
+              onClick={() => increase(props)}
               type="primary"
               shape="circle"
               icon="plus"
@@ -47,7 +47,7 @@ Dish.propTypes = {
 
 export default connect(
   (state, ownProps) => ({
-    amount: state.cart[ownProps.id] || 0
+    amount: state.cart[ownProps.id] ? state.cart[ownProps.id].amount : 0
   }),
   {
     increase: increaseCart,
