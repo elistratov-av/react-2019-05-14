@@ -4,6 +4,8 @@ export const idSelector = (_, ownProps) => ownProps.id;
 export const cartSelector = state => state.cart;
 export const restaurantsSelector = state => state.restaurants;
 export const dishesSelector = state => state.dishes;
+export const reviewsSelector = state => state.reviews;
+export const restaurantSelector = (_, ownProps) => ownProps;
 
 export const createDishSelector = () =>
   createSelector(
@@ -41,5 +43,15 @@ export const selectAllDishesAndTotalPrice = createSelector(
       dishes: allDishes,
       totalPrice
     };
+  }
+);
+
+export const selectRestaurantReviews = createSelector(
+  restaurantSelector,
+  reviewsSelector,
+  (restaurant, reviews) => {
+    console.log("selectRestaurantReviews");
+    restaurant.reviews = restaurant.reviews.map(id => reviews[id]);
+    return restaurant;
   }
 );

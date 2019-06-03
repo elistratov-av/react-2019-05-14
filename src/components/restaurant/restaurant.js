@@ -6,6 +6,8 @@ import ReviewList from "../review-list";
 import { toggleVisibility } from "../../decorators/toggleVisibility";
 import * as PropTypes from "prop-types";
 import "./restaurant.css";
+import { connect } from "react-redux";
+import { selectRestaurantReviews } from "../../selectors";
 
 class Restaurant extends PureComponent {
   state = {
@@ -28,6 +30,7 @@ class Restaurant extends PureComponent {
       isOpen: isReviewOpen,
       toggleVisibility
     } = this.props;
+    console.log("Restaurant props:", this.props);
 
     return this.state.error ? (
       "Not available"
@@ -81,4 +84,5 @@ Restaurant.propTypes = {
   toggleVisibility: PropTypes.func.isRequired
 };
 
-export default toggleVisibility(Restaurant);
+//export default toggleVisibility(Restaurant);
+export default connect(selectRestaurantReviews)(toggleVisibility(Restaurant));
