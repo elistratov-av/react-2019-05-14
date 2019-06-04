@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Rate } from "antd";
 import "./review-form.css";
+import { connect } from "react-redux";
+import { addReview } from "../../ac";
 
 class ReviewForm extends Component {
   state = {
@@ -63,7 +65,13 @@ class ReviewForm extends Component {
   submit = e => {
     e.preventDefault();
     console.log(this.state);
+    this.props.addReview(this.state);
   };
 }
 
-export default ReviewForm;
+export default connect(
+  null,
+  {
+    addReview: addReview
+  }
+)(ReviewForm);
