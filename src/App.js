@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
 import RestaurantList from "./components/restaurant-list";
+import ReviewForm from "./components/review-form";
 import UserForm from "./components/user-form";
 // import RestaurantsMap from "./components/restaurants-map";
 import { Layout } from "antd";
@@ -21,6 +22,7 @@ function App(props) {
         {/* temporary turn Map off */}
         {/*{<RestaurantsMap restaurants={props.restaurants} />}*/}
         <OrderList />
+        <ReviewForm />
         <UserForm />
       </Content>
       <Footer>
