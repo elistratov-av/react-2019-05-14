@@ -1,10 +1,12 @@
 import { createSelector } from "reselect";
+// import AverageRating from "../components/average-rating";
 
 export const idSelector = (_, ownProps) => ownProps.id;
 export const cartSelector = state => state.cart;
 export const restaurantsSelector = state => state.restaurants;
 export const dishesSelector = state => state.dishes;
 export const reviewsSelector = state => state.reviews;
+export const usersSelector = state => state.users;
 export const restaurantSelector = (_, ownProps) => ownProps;
 
 export const createDishSelector = () =>
@@ -49,9 +51,21 @@ export const selectAllDishesAndTotalPrice = createSelector(
 export const selectRestaurantReviews = createSelector(
   restaurantSelector,
   reviewsSelector,
-  (restaurant, reviews) => {
-    console.log("selectRestaurantReviews");
-    restaurant.reviews = restaurant.reviews.map(id => reviews[id]);
-    return restaurant;
+  usersSelector,
+  (restaurant, reviews, users) => {
+    reviews = restaurant.reviews.map(id => {
+      let r = reviews[id];
+      if (r && r.userId) {
+        let u = users[r.userId];
+        r.user = u && u.name;
+      }
+      return {
+        id: r.id,
+        text: r.text,
+        rating: r.rating,
+        user: r.user
+      };
+    });
+    return { reviews };
   }
 );
