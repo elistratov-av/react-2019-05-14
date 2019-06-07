@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { createReviewsSelector } from "../../selectors";
 import { connect } from "react-redux";
 import AddReview from "../add-review";
+import { loadReviews } from "../../ac";
 
 function ReviewList({ reviews, id }) {
   return (
@@ -31,4 +32,7 @@ const initMapStateToProps = () => {
   };
 };
 
-export default connect(initMapStateToProps)(ReviewList);
+export default connect(
+  initMapStateToProps,
+  { loadReviews }
+)(ReviewList);

@@ -5,7 +5,11 @@ export const cartSelector = state => state.cart;
 export const restaurantsSelector = state =>
   state.restaurants.get("entities").toJS();
 export const dishesSelector = state => state.dishes;
-export const reviewsSelector = state => state.reviews;
+export const reviewsSelector = state => state.reviews.get("entities").toJS();
+export const reviewsLoadStateSelector = state => {
+  const { loaded, loading, error } = state.reviews.toJS();
+  return { loaded, loading, error };
+};
 export const usersSelector = state => state.users;
 export const loadingSelector = state => state.restaurants.get("loading");
 
@@ -67,6 +71,7 @@ export const createReviewsSelector = () =>
     restaurantSelector,
     (reviews, restaurant) => {
       // console.log(restaurant);
+      if (!reviews.length) return [];
       return restaurant.reviews.map(reviewId =>
         reviews.find(review => review.id === reviewId)
       );

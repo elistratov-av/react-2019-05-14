@@ -64,6 +64,8 @@ class Restaurant extends PureComponent {
   handleToggleOpenClick = () => {
     this.props.toggleOpenMenu(this.props.id);
   };
+
+  handleToggleReviewClick = () => {};
 }
 
 Restaurant.propTypes = {

@@ -5,7 +5,8 @@ import {
   SUBTRACT_FROM_CART,
   DELETE_FROM_CART,
   ADD_REVIEW,
-  LOAD_RESTAURANTS
+  LOAD_RESTAURANTS,
+  LOAD_REVIEWS
 } from "../constants";
 
 export const increase = () => ({
@@ -47,4 +48,9 @@ export const addReview = (userName, rating, text, restaurantId) => ({
 export const loadRestaurants = () => ({
   type: LOAD_RESTAURANTS,
   callAPI: "http://localhost:3001/api/restaurants"
+});
+
+export const loadReviews = () => ({
+  type: LOAD_REVIEWS,
+  callAPI: "http://localhost:3001/api/reviews"
 });

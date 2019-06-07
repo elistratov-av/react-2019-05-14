@@ -13,6 +13,7 @@ import { loadRestaurants } from "./ac";
 const { Header, Content, Footer } = Layout;
 
 function App(props) {
+  console.log(props.loading);
   return (
     <Layout className="App">
       <Header className="header">
