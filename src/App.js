@@ -5,12 +5,12 @@ import UserForm from "./components/user-form";
 import { Layout, Menu } from "antd";
 import CartBadge from "./components/cart-badge";
 // import Counter from "./components/counter";
-import OrderList from "./components/order-list";
 import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
 import ListPage from "./components/routes/list";
 import MapPage from "./components/routes/map";
 import MenuPage from "./components/routes/menu";
 import Counter from "./components/counter";
+import OrderPage from "./components/routes/order";
 
 const { Header, Content, Footer } = Layout;
 
@@ -42,13 +42,13 @@ function App() {
             <Route path={"/restaurants/counter"} component={Counter} />
             <Route path={"/restaurant-map/:restaurantId"} component={MapPage} />
             <Route path={"/restaurant-map"} component={MapPage} />
+            <Route path={"/order"} component={OrderPage} />
             <Route
               path={"/restaurant-menu/:restaurantId"}
               component={MenuPage}
             />
             <Route path={"/"} render={() => <h2>Page not found</h2>} />
           </Switch>
-          <OrderList />
           <UserForm />
         </Content>
         <Footer>{/*<Counter />*/}</Footer>
