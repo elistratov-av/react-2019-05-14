@@ -11,6 +11,7 @@ import MapPage from "./components/routes/map";
 import MenuPage from "./components/routes/menu";
 import Counter from "./components/counter";
 import OrderPage from "./components/routes/order";
+import OrderCompletePage from "./components/routes/order-complete";
 
 const { Header, Content, Footer } = Layout;
 
@@ -43,6 +44,7 @@ function App() {
             <Route path={"/restaurant-map/:restaurantId"} component={MapPage} />
             <Route path={"/restaurant-map"} component={MapPage} />
             <Route path={"/order"} component={OrderPage} />
+            <Route path={"/order-complete"} component={OrderCompletePage} />
             <Route
               path={"/restaurant-menu/:restaurantId"}
               component={MenuPage}
