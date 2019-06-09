@@ -40,6 +40,7 @@ function App() {
           <Switch>
             <Route path={"/restaurants"} component={ListPage} />
             <Route path={"/restaurants/counter"} component={Counter} />
+            <Route path={"/restaurant-map/:restaurantId"} component={MapPage} />
             <Route path={"/restaurant-map"} component={MapPage} />
             <Route
               path={"/restaurant-menu/:restaurantId"}

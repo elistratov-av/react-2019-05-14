@@ -12,8 +12,6 @@ import {
 } from "../../selectors";
 import { loadDishes, loadRestaurants } from "../../ac";
 import "./restaurant-menu.css";
-import { Route } from "react-router-dom";
-import Counter from "../counter";
 
 function RestaurantMenu(props) {
   useEffect(() => {
