@@ -12,74 +12,89 @@ import OrderCompletePage from "./components/routes/order-complete";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./history";
 import { Provider as UserProvider } from "./contexts/user";
+import { langs, LangContext } from "./contexts/lang";
+import ToggleLang from "./components/toggle-lang";
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
   const [user, setUser] = useState({ name: "default name" });
+  const [lang, setLang] = useState(langs.ru);
   return (
-    <UserProvider value={user}>
-      <ConnectedRouter history={history}>
-        <Layout className="App">
-          <Header className="header">
-            <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
-              <Menu.Item>
-                <NavLink
-                  to={"/restaurants"}
-                  activeStyle={{ color: "lightgrey" }}
-                >
-                  List
-                </NavLink>
-              </Menu.Item>
-              <Menu.Item>
-                <NavLink
-                  to={"/restaurant-map"}
-                  activeStyle={{ color: "lightgrey" }}
-                >
-                  Map
-                </NavLink>
-              </Menu.Item>
-              <CartBadge />
-            </Menu>
-          </Header>
-          <Content>
-            <Switch>
-              <Redirect from={"/"} exact to={"/restaurants"} />
-              <Route path={"/restaurants"} component={ListPage} />
-              <Route path={"/restaurants/counter"} component={Counter} />
-              <Route
-                path={"/restaurant-map/:restaurantId"}
-                component={MapPage}
-              />
-              <Route path={"/restaurant-map/"} component={MapPage} />
-              <Route
-                path={"/restaurant-menu/:restaurantId"}
-                component={MenuPage}
-              />
-              <Route path={"/order-complete"} component={OrderCompletePage} />
-              <Route
-                path={"/order"}
-                render={() => <OrderPage setUser={setUser} />}
-              />
-              <Route path={"/error"} render={() => <h2>Error page</h2>} />
-              <Route
-                path={"/"}
-                exact
-                children={props => {
-                  if (props.match) {
-                    console.log("matched");
-                    return <h2>Page not found</h2>;
-                  } else {
-                    console.log("not matched");
+    <LangContext.Provider value={lang}>
+      <UserProvider value={user}>
+        <ConnectedRouter history={history}>
+          <Layout className="App">
+            <Header className="header">
+              <Menu
+                theme="dark"
+                mode="horizontal"
+                style={{ lineHeight: "64px" }}
+              >
+                <Menu.Item>
+                  <NavLink
+                    to={"/restaurants"}
+                    activeStyle={{ color: "lightgrey" }}
+                  >
+                    {lang.list}
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item>
+                  <NavLink
+                    to={"/restaurant-map"}
+                    activeStyle={{ color: "lightgrey" }}
+                  >
+                    {lang.map}
+                  </NavLink>
+                </Menu.Item>
+                <CartBadge />
+                <span>&nbsp;</span>
+                <ToggleLang
+                  toggleLang={() =>
+                    setLang(lang === langs.ru ? langs.en : langs.ru)
                   }
-                }}
-              />
-            </Switch>
-          </Content>
-          <Footer>{/*<Counter />*/}</Footer>
-        </Layout>
-      </ConnectedRouter>
-    </UserProvider>
+                />
+              </Menu>
+            </Header>
+            <Content>
+              <Switch>
+                <Redirect from={"/"} exact to={"/restaurants"} />
+                <Route path={"/restaurants"} component={ListPage} />
+                <Route path={"/restaurants/counter"} component={Counter} />
+                <Route
+                  path={"/restaurant-map/:restaurantId"}
+                  component={MapPage}
+                />
+                <Route path={"/restaurant-map/"} component={MapPage} />
+                <Route
+                  path={"/restaurant-menu/:restaurantId"}
+                  component={MenuPage}
+                />
+                <Route path={"/order-complete"} component={OrderCompletePage} />
+                <Route
+                  path={"/order"}
+                  render={() => <OrderPage setUser={setUser} />}
+                />
+                <Route path={"/error"} render={() => <h2>Error page</h2>} />
+                <Route
+                  path={"/"}
+                  exact
+                  children={props => {
+                    if (props.match) {
+                      console.log("matched");
+                      return <h2>Page not found</h2>;
+                    } else {
+                      console.log("not matched");
+                    }
+                  }}
+                />
+              </Switch>
+            </Content>
+            <Footer>{/*<Counter />*/}</Footer>
+          </Layout>
+        </ConnectedRouter>
+      </UserProvider>
+    </LangContext.Provider>
   );
 }
 

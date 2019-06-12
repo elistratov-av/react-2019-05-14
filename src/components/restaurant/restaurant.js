@@ -6,6 +6,7 @@ import { toggleVisibility } from "../../decorators/toggleVisibility";
 import * as PropTypes from "prop-types";
 import "./restaurant.css";
 import { NavLink } from "react-router-dom";
+import { LangContext } from "../../contexts/lang";
 
 class Restaurant extends PureComponent {
   state = {
@@ -29,35 +30,43 @@ class Restaurant extends PureComponent {
     return this.state.error ? (
       "Not available"
     ) : (
-      <>
-        <List.Item
-          className="restaurant-list-item"
-          actions={[
-            <AverageRating id={id} />,
-            <Button
-              data-automation-id={`toggle-review-list-${id}`}
-              onClick={toggleVisibility}
+      <LangContext.Consumer>
+        {lang => (
+          <>
+            <List.Item
+              className="restaurant-list-item"
+              actions={[
+                <AverageRating id={id} />,
+                <Button
+                  data-automation-id={`toggle-review-list-${id}`}
+                  onClick={toggleVisibility}
+                >
+                  {isReviewOpen ? lang.hideReviews : lang.showReviews}
+                </Button>,
+                <Button
+                  data-automation-id={`toggle-menu-${id}`}
+                  onClick={this.handleToggleOpenClick}
+                >
+                  <NavLink to={`/restaurant-menu/${id}`}>
+                    {lang.gotoMenu}
+                  </NavLink>
+                </Button>,
+                <Button>
+                  <NavLink to={`/restaurant-map/${id}`}>
+                    {lang.showOnMap}
+                  </NavLink>
+                </Button>
+              ]}
             >
-              {isReviewOpen ? "Hide reviews" : "Show reviews"}
-            </Button>,
-            <Button
-              data-automation-id={`toggle-menu-${id}`}
-              onClick={this.handleToggleOpenClick}
-            >
-              <NavLink to={`/restaurant-menu/${id}`}>Go to menu</NavLink>
-            </Button>,
-            <Button>
-              <NavLink to={`/restaurant-map/${id}`}>Show on map</NavLink>
-            </Button>
-          ]}
-        >
-          <List.Item.Meta
-            avatar={<Avatar shape="square" src={image} />}
-            title={name}
-          />
-        </List.Item>
-        {isReviewOpen ? <ReviewList id={id} /> : null}
-      </>
+              <List.Item.Meta
+                avatar={<Avatar shape="square" src={image} />}
+                title={name}
+              />
+            </List.Item>
+            {isReviewOpen ? <ReviewList id={id} /> : null}
+          </>
+        )}
+      </LangContext.Consumer>
     );
   }
 
