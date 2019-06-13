@@ -1,11 +1,13 @@
 import { createSelector } from "reselect";
+import { Map } from "immutable";
 
 export const idSelector = (_, ownProps) => ownProps.id;
 
 export const cartMapSelector = state => state.cart;
 export const restaurantsListSelector = ({ restaurants }) =>
   restaurants.get("entities");
-export const dishesMapSelector = state => state.dishes.entities;
+export const dishesMapSelector = state =>
+  state.dishes.reduce((entities, d) => entities.merge(d.entities), Map({}));
 export const reviewsMapSelector = state => state.reviews.entities;
 export const usersMapSelector = state => state.users.entities;
 
@@ -14,15 +16,24 @@ export const restaurantsLoadingSelector = state =>
 export const restaurantsLoadedSelector = state =>
   state.restaurants.get("loaded");
 
-export const reviewsLoadingSelector = state => state.reviews.get("loading");
+export const reviewsLoadingSelector = state => state.reviews.loading;
 export const reviewsLoadedSelector = state => state.reviews.loaded;
 
 export const usersLoadingSelector = state => state.users.loading;
 export const usersLoadedSelector = state => state.users.loaded;
 
-export const dishesLoadingSelector = state => state.dishes.loading;
-export const dishesLoadedSelector = state => state.dishes.loaded;
-export const dishesErrorSelector = state => state.dishes.error;
+export const dishesLoadingSelector = (state, ownProps) => {
+  const d = state.dishes.get(ownProps.id);
+  return d && d.loading;
+};
+export const dishesLoadedSelector = (state, ownProps) => {
+  const d = state.dishes.get(ownProps.id);
+  return d && d.loaded;
+};
+export const dishesErrorSelector = (state, ownProps) => {
+  const d = state.dishes.get(ownProps.id);
+  return d && d.error;
+};
 
 export const cartSelector = createSelector(
   cartMapSelector,
@@ -46,12 +57,13 @@ export const reviewsArraySelector = createSelector(
   }
 );
 
-export const dishesArraySelector = createSelector(
-  dishesMapSelector,
-  dishesMap => {
-    return dishesMap.valueSeq().toArray();
-  }
-);
+// export const dishesArraySelector = createSelector(
+//   dishesMapSelector,
+//   idSelector,
+//   (dishesMap, id) => {
+//     return dishesMap.get("id").valueSeq().toArray();
+//   }
+// );
 
 export const usersSelector = createSelector(
   usersMapSelector,

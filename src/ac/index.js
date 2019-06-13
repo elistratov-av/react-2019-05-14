@@ -71,19 +71,27 @@ export const loadUsers = () => ({
 export const loadDishes = id => (dispatch, getState) => {
   const state = getState();
   if (!state.dishes.loaded && !state.dishes.loading) {
-    dispatch({ type: LOAD_DISHES + START });
+    dispatch({ type: LOAD_DISHES + START, payload: { id } });
     fetch(`http://localhost:3001/api/dishes?id=${id}`)
       .then(res => res.json())
       .then(data => {
         if (data.error) {
-          dispatch({ type: LOAD_DISHES + FAIL, error: data.error });
+          dispatch({
+            type: LOAD_DISHES + FAIL,
+            payload: { id },
+            error: data.error
+          });
           dispatch(replace("/error"));
         } else {
-          dispatch({ type: LOAD_DISHES + SUCCESS, response: data });
+          dispatch({
+            type: LOAD_DISHES + SUCCESS,
+            payload: { id },
+            response: data
+          });
         }
       })
       .catch(e => {
-        dispatch({ type: LOAD_DISHES + FAIL, error: e });
+        dispatch({ type: LOAD_DISHES + FAIL, payload: { id }, error: e });
       });
   }
 };

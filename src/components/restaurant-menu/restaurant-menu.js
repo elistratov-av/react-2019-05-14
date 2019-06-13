@@ -51,8 +51,8 @@ const initMapStateToProps = () => {
   return (state, ownProps) => {
     return {
       menu: dishSelector(state, ownProps).map(dish => dish.id),
-      isDishesLoading: dishesLoadingSelector(state),
-      isDishesLoaded: dishesLoadedSelector(state),
+      isDishesLoading: dishesLoadingSelector(state, ownProps),
+      isDishesLoaded: dishesLoadedSelector(state, ownProps),
       isRestaurantLoading: restaurantsLoadingSelector(state),
       isRestaurantLoaded: restaurantsLoadedSelector(state)
     };
